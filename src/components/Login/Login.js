@@ -2,12 +2,17 @@ import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import useStore from '../../store';
+import useMortgageStore from '../../morgageStore';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
+
+  const {updateUserData} = useStore();
+  const {updateMortgage} = useMortgageStore();
 
   const navigate = useNavigate()
   const handleSubmit = (e) => {
@@ -18,15 +23,20 @@ const Login = () => {
     }
 
     setError('');
-    axios.post('http://127.0.0.1:8000/login', {
+    axios.post('https://mortgage-backend-iz78.onrender.com/login', {
       username: username,
       password: password
     })
     .then((response) => {
       console.log('Login successful:', response.data);
       setSuccess('Logged in Successfully.');
+      const { access_token, user_details, mortgage } = response.data;
+      localStorage.setItem("token", access_token);
+      updateUserData(user_details);
+      updateMortgage(mortgage);
+      console.log("Login successful:", user_details);
       localStorage.setItem("username", username);
-      navigate("/home");
+      navigate("/");
     })
     .catch((error) => {
       console.error('Login error:', error);
@@ -34,6 +44,7 @@ const Login = () => {
     });
   };
   return (
+    <div className='login-main'>
     <div className="login-container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit} className="login-form">
@@ -50,24 +61,19 @@ const Login = () => {
           />
         </div>
 
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit" className="login-button">Login</button>
-        <button type="button" className="register-button"
-        onClick={()=>{
-          navigate("/register")
-        }
-        }>Register</button>
-      </form>
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <button type="submit" className="login-button">Login</button>
+        </form>
+    </div>
     </div>
   );
 };

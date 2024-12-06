@@ -1,0 +1,128 @@
+.profile-container {
+    width: 90%; /* Flexible width for responsiveness */
+    max-width: 600px; /* Prevent it from becoming too wide */
+    margin: auto;
+    margin-top: 70px;
+    padding: 10px;
+    background-color: #f7f9fc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .profile-card {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+  }
+  
+  .profile-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+  }
+  
+  .profile-row:last-child {
+    border-bottom: none;
+  }
+  
+  .profile-label {
+    font-weight: bold;
+    color: #555;
+    flex: 1;
+  }
+  
+  .profile-value {
+    color: #333;
+    flex: 2;
+    text-align: right;
+  }
+  
+  .profile-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 10px; /* Space between buttons */
+  }
+  
+  .profile-button {
+    flex: 1; /* Ensure buttons take equal space */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .edit-button {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .edit-button:hover {
+    background-color: #45a049;
+  }
+  
+  .back-button {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .back-button:hover {
+    background-color: #e53935;
+  }
+  
+  /* Media Queries for Responsiveness */
+  @media (max-width: 768px) {
+    .profile-container {
+      width: 80%; /* Narrower width on smaller screens */
+      padding: 15px;
+    }
+  
+    .profile-row {
+      flex-direction: column; /* Stack rows */
+      align-items: flex-start; /* Align items to the start */
+    }
+  
+    .profile-value {
+      text-align: left; /* Align values to the left */
+      margin-top: 5px; /* Add some spacing */
+    }
+  
+    .profile-buttons {
+      flex-direction: column; /* Stack buttons vertically */
+    }
+  
+    .profile-button {
+      width: 100%; /* Full width for better touch experience */
+      margin-bottom: 10px; /* Space between buttons */
+    }
+  
+    .profile-button:last-child {
+      margin-bottom: 0; /* Remove margin for the last button */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 1.5rem; /* Smaller font for smaller screens */
+    }
+  
+    .profile-card {
+      padding: 15px; /* Reduce padding for small screens */
+    }
+  
+    .profile-button {
+      font-size: 14px; /* Smaller buttons for smaller screens */
+      padding: 8px 15px;
+    }
+  }
+  

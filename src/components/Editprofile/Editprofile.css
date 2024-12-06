@@ -1,0 +1,157 @@
+/* Profile Container Styling */
+.ed-profile-container {
+  width: 90%; /* Adjusted width for responsiveness */
+  max-width: 600px; /* Prevent it from becoming too wide */
+  margin: auto;
+  margin-top: 70px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.ed-profile-container h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+  font-size: 24px; /* Increased font size for better readability */
+}
+
+/* Table Styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table th {
+  width: 30%;
+  background-color: #f1f1f1;
+  font-weight: bold;
+  color: #555;
+}
+
+.table td {
+  width: 70%;
+}
+
+/* Input Fields */
+.table input[type="text"],
+.table input[type="email"],
+.table input[type="date"],
+.table select,
+.table textarea {
+  width: 90%; /* Full width for better usability */
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+/* Textarea Styling */
+.table textarea {
+  height: 80px;
+  resize: none;
+}
+
+/* Button Styling */
+.button-row {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-save,
+.btn-cancel {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 5px;
+  display: inline-block;
+}
+
+.btn-save {
+  background-color: #4caf50;
+  color: white;
+}
+
+.btn-save:hover {
+  background-color: #45a049;
+}
+
+.btn-cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #e53935;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .ed-profile-container {
+    width: 95%; /* Adjust width for medium-sized screens */
+    padding: 15px; /* Increased padding */
+  }
+
+  .table th,
+  .table td {
+    display: block; /* Stack table rows */
+    width: 100%;
+  }
+
+  .table th {
+    text-align: center; /* Center text in header */
+    background-color: #f1f1f1;
+  }
+
+  .table td {
+    text-align: left; /* Align text to the left */
+    margin-top: 5px; /* Add space between inputs */
+  }
+
+  .table input[type="text"],
+  .table input[type="email"],
+  .table input[type="date"],
+  .table select,
+  .table textarea {
+    font-size: 12px; /* Slightly smaller font for smaller screens */
+  }
+
+  .btn-save,
+  .btn-cancel {
+    width: 100%; /* Full width for buttons */
+    font-size: 14px; /* Adjust font size */
+    padding: 10px; /* Adjust padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .ed-profile-container {
+    width: 100%; /* Full width for smaller screens */
+    padding: 10px; /* Reduced padding */
+  }
+
+  .table th {
+    font-size: 14px; /* Smaller header text */
+  }
+
+  .table td {
+    font-size: 12px; /* Smaller text */
+  }
+
+  .btn-save,
+  .btn-cancel {
+    font-size: 12px; /* Smaller font size */
+    padding: 8px 10px; /* Adjust padding */
+  }
+}

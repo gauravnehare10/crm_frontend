@@ -1,0 +1,112 @@
+/* Navbar container */
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 98%;
+  background-color: #8218ec; /* Dark background color */
+  color: #fff; /* White text color */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  z-index: 1000; /* Ensure it's always on top */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+}
+
+/* Navbar content */
+.dash-navbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Username styling */
+.dash-navbar h2 {
+  margin: 0;
+  font-size: 18px;
+  color: yellow;
+}
+
+/* Navigation buttons container */
+.nav-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Navigation links */
+.nav-buttons ul {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 15px;
+}
+
+.nav-buttons ul li {
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  color: #fff; /* White text color */
+  font-size: 16px;
+}
+
+.nav-buttons ul li:hover {
+  background-color: #33454d; /* Hover effect */
+}
+
+/* Logout button */
+.logout-button {
+  background-color: #d9534f; /* Red color for logout */
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #c9302c; /* Darker red on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .nav-buttons ul {
+      flex-direction: column;
+      background-color: #2b3b5a; /* Match navbar background */
+      position: absolute;
+      top: 50px; /* Below the navbar */
+      left: 0;
+      right: 0;
+      display: none; /* Hidden by default */
+      padding: 10px 0;
+  }
+
+  .nav-buttons ul.show {
+      display: flex; /* Show on toggle */
+  }
+
+  .nav-buttons ul li {
+      text-align: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #444; /* Separator */
+  }
+
+  /* Hamburger menu for mobile */
+  .dash-navbar::before {
+      content: '☰';
+      font-size: 24px;
+      cursor: pointer;
+      margin-right: 20px;
+      display: block;
+  }
+
+  .dash-navbar::before:hover {
+      color: #aaa;
+  }
+}

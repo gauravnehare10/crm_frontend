@@ -1,25 +1,110 @@
-/* Home.css */
+.main-div {
+  margin-top: 55px;
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  background-color: #f4f4f4;
+}
+
+.user-details {
+  width: 25%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  border-right: 2px solid #ddd;
+}
+
+.user-details p {
+  margin: 10px 0;
+}
+
 .home {
-    text-align: center;
-    padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 20px;
+}
+
+.step-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 50px;
+}
+
+.step-item label {
+  flex-grow: 1;
+}
+
+.step-item input,
+.step-item select {
+  width: auto;
+  padding: 8px;
+  margin-left: 10px;
+  border: solid black 1px;
+  border-radius: 5px;
+}
+
+.navigation-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.navigation-buttons button{
+  padding: 10px;
+  width: 100px;
+  border-radius: 5px;
+  border: none;
+}
+
+.navigation-buttons :first-child{
+  background-color: rgb(189 125 195);
+  color: white;
+}
+
+.navigation-buttons :last-child{
+  background-color: blue;
+  color: white;
+}
+
+.navigation-buttons :first-child:hover{
+  background-color: rgb(123, 116, 123);
+}
+
+.navigation-buttons :last-child:hover{
+  background-color: rgb(87, 178, 235);
+}
+
+@media (max-width: 768px) {
+  .main-div {
+    flex-direction: column;
   }
-  
-  .home-header h1 {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+
+  .user-details {
+    width: 100%;
+    border-right: none;
+    border-bottom: 2px solid #ddd;
   }
-  
-  .home-content {
-    margin-top: 20px;
+
+  .home {
+    width: 100%;
   }
-  
-  .home-section {
-    margin-bottom: 20px;
+
+  .step-content {
+    max-width: 100%;
   }
-  
-  .home-footer {
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: #555;
-  }
-  
+}
