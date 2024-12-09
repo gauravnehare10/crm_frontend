@@ -52,7 +52,7 @@ const Register = () => {
       return;
     }
 
-    axios.post('https://mortgage-backend-iz78.onrender.com/register', {
+    axios.post('https://mortgage-backend-jo6l.onrender.com/register', {
       name: name,
       username: username,
       password: password,
@@ -64,12 +64,12 @@ const Register = () => {
       setSuccess('Registration successful!');
       updateUserData({
         name : name,
-        username: username,
+        username: username.toLowerCase(),
         email: email,
         contactnumber: contactNumber
       })
-      localStorage.setItem("username", username);
-      navigate('/');
+      localStorage.setItem("username", username.toLowerCase());
+      navigate('/home');
     })
     .catch((error) => {
       console.error('Registration error:', error);

@@ -1,7 +1,7 @@
 .main-div {
   margin-top: 55px;
   display: flex;
-  height: 100vh;
+  height: 120vh;
   flex-direction: row;
   background-color: #f4f4f4;
 }
@@ -37,26 +37,30 @@
   margin-bottom: 20px;
 }
 
-.step-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.table {
+  border-spacing: 0 15px;
+  border-collapse: separate;
+}
+
+.st-item {
   width: 100%;
-  margin-bottom: 50px;
+  max-width: 600px;
+  margin-bottom: 20px;
 }
 
-.step-item label {
-  flex-grow: 1;
-}
-
-.step-item input,
-.step-item select {
-  width: auto;
-  padding: 8px;
-  margin-left: 10px;
+.inp-data{
+  width: 100%;
+  padding: 5px;
   border: solid black 1px;
-  border-radius: 5px;
 }
+
+.pound-symbol{
+  border: solid rgb(84, 82, 82) 0.5px;
+  padding: 7.5px 5px;
+  margin-right: none;
+  border-radius: 5px 0px 0px 5px;
+}
+
 
 .navigation-buttons {
   display: flex;
@@ -65,20 +69,48 @@
 }
 
 .navigation-buttons button{
-  padding: 10px;
+  padding: 8px;
   width: 100px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: none;
 }
 
 .navigation-buttons :first-child{
   background-color: rgb(189 125 195);
   color: white;
+  width: 140px;
 }
 
 .navigation-buttons :last-child{
   background-color: blue;
   color: white;
+  width: 140px;
+}
+
+.back-but{
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  padding: 10px;
+  background-color: red;
+  color: white;
+}
+
+.submit-but{
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  padding: 10px;
+}
+
+.submit-but:hover{
+  background-color: rgb(8, 25, 182);
+}
+
+.back-but:hover{
+  background-color: rgb(161, 6, 6);
 }
 
 .navigation-buttons :first-child:hover{
@@ -89,7 +121,8 @@
   background-color: rgb(87, 178, 235);
 }
 
-@media (max-width: 768px) {
+
+@media only screen and (max-width: 668px) {
   .main-div {
     flex-direction: column;
   }

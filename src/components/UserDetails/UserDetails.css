@@ -1,0 +1,101 @@
+/* Base styles */
+.user-details-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin-top: 50px;
+    margin: auto;
+}
+
+.back-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.edit-button{
+    background-color: rgb(70, 243, 70);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.edit-button:hover{
+    background-color: rgb(10, 207, 10);
+}
+
+.back-button:hover {
+    background-color: rgb(158, 14, 14);
+}
+
+.user-details-title {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.user-details-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 16px;
+}
+
+.user-details-table > th, td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .user-details-container {
+        padding: 10px;
+    }
+
+    .back-button {
+        width: 100%;
+        padding: 12px 0;
+        margin-bottom: 15px;
+    }
+
+    .edit-button{
+        width: 100%;
+    margin-top: 10px;
+    }
+
+    .user-details-title {
+        font-size: 20px;
+    }
+
+    .user-details-table {
+        font-size: 14px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+}
+
+/* Laptop and larger screens */
+@media (min-width: 769px) {
+    .user-details-container {
+        max-width: 1000px;
+    }
+
+    .user-details-table {
+        font-size: 16px;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}

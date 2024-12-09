@@ -1,0 +1,110 @@
+
+.inp-data {
+  width: 100%;
+  padding: 10px;
+  border: solid black 1px;
+  box-sizing: border-box;
+}
+
+.select-data {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.submit-button, .back-button {
+  padding: 10px;
+  width: 100px;
+  border: none;
+  border-radius: 5px;
+}
+
+.submit-button {
+  background-color: rgb(4, 254, 75);
+}
+
+.submit-button:hover {
+  background-color: rgb(4, 173, 4);
+}
+
+
+.user-details-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+.user-details-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.user-details-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-details-table th,
+.user-details-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.user-details-table th {
+  width: 40%;
+  background-color: #f2f2f2;
+}
+
+.user-details-table td {
+  width: 60%;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .user-details-container {
+    padding: 10px;
+  }
+
+  .user-details-title {
+    font-size: 1.25rem;
+  }
+
+  .user-details-table th,
+  .user-details-table td {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+
+  .user-details-table th {
+    margin-top: 10px;
+  }
+
+  .back-button, .submit-button {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .user-details-title {
+    font-size: 1rem;
+  }
+
+  .inp-data, .select-data {
+    font-size: 0.9rem;
+  }
+
+  .back-button, .submit-button {
+    padding: 8px;
+  }
+}

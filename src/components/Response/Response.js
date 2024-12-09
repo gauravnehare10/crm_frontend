@@ -7,7 +7,7 @@ import useMortgageStore from '../../morgageStore';
 export default function Response() {
     const navigate = useNavigate();
     const {userdata} = useStore();
-    const {mortgagedata, updateMortgage} = useMortgageStore();
+    const {mortgagedata} = useMortgageStore();
   return (
     <div>
       <div style={{ display: "flex", height: "auto" }}>
@@ -33,11 +33,23 @@ export default function Response() {
 
           <div className="profile-row">
             <span className="profile-label">Has Mortgage? :</span>
-            <span className="profile-value">{mortgagedata.hasMortgage}</span>
+            { mortgagedata.hasMortgage ==="true" ? (
+              <>
+                <span className="profile-value">Yes</span>
+              </>
+            ) : (
+              <>
+                <span className="profile-value">No</span>
+              </>
+            )}
           </div>
           <div className="profile-row">
             <span className="profile-label">Mortgage Count :</span>
             <span className="profile-value">{mortgagedata.mortgageCount}</span>
+          </div>
+          <div className="profile-row">
+            <span className="profile-label">Are they Residential or Buy to let :</span>
+            <span className="profile-value">{mortgagedata.resOrBuyToLet}</span>
           </div>
           <div className="profile-row">
             <span className="profile-label">Mortgage Type:</span>
@@ -54,7 +66,15 @@ export default function Response() {
           
           <div className="profile-row">
             <span className="profile-label">Is Looking For Mortgage? :</span>
-            <span className="profile-value">{mortgagedata.isLookingForMortgage}</span>
+            { mortgagedata.isLookingForMortgage ? (
+              <>
+                <span className="profile-value">Yes</span>
+              </>
+            ) : (
+              <>
+                <span className="profile-value">No</span>
+              </>
+            )}
           </div>
           <div className="profile-row">
             <span className="profile-label">New Mortgage Amount:</span>
@@ -68,9 +88,16 @@ export default function Response() {
             <span className="profile-label">Annual Income:</span>
             <span className="profile-value">{mortgagedata.annualIncome}</span>
           </div>
-
+          <div className="profile-row">
+            <span className="profile-label">Deposite Amount:</span>
+            <span className="profile-value">{mortgagedata.depositeAmt}</span>
+          </div>
+          <div className="profile-row">
+            <span className="profile-label">Have you found Property:</span>
+            <span className="profile-value">{mortgagedata.foundProperty}</span>
+          </div>
           <div className="profile-buttons">
-            <button className="profile-button back-button" onClick={()=>{navigate("/")}}>
+            <button className="profile-button back-button" onClick={()=>{navigate("/home")}}>
               Back
             </button>
           </div>

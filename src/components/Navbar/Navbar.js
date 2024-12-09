@@ -1,21 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Navbar.css";
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 export default function Navbar() {
-    const isLoggedIn = !!localStorage.getItem('username');
+    const isLoggedIn = !!localStorage.getItem('username') || !!localStorage.getItem('admin_details');
+    const isAdmin = !!localStorage.getItem('admin_details'); // Check if admin is logged in
     const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsMenuOpen((prev) => !prev);
+    };
+
     const handleLogout = () => {
         localStorage.clear();
         navigate("/login");
         alert("Logged Out Successfully...");
     };
 
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setIsMenuOpen((prev) => !prev);
+    const handleNavigation = (path) => {
+        navigate(path);
+        setIsMenuOpen(false); // Close the menu after navigation
     };
 
     const username = localStorage.getItem("username");
@@ -23,25 +28,39 @@ export default function Navbar() {
     return (
         <div className="navbar-container">
             <div className="dash-navbar" onClick={toggleMenu}>
-                <h2>{isLoggedIn ? username : "Hey Guest !!"}</h2>
+                <h2>{isLoggedIn ? (isAdmin ? "Admin" : username) : "Hey Guest !!"}</h2>
             </div>
             <div className="nav-buttons">
                 {isLoggedIn ? (
-                    <>
-                        <ul className={isMenuOpen ? 'show' : ''}>
-                            <li onClick={() => navigate("/")}>Home</li>
-                            <li onClick={() => navigate("/profile")}>Account</li>
-                        </ul>
-                        <button className="logout-button" onClick={handleLogout}>
-                            Logout
-                        </button>
-                    </>
+                    isAdmin ? (
+                        // Admin-specific navbar
+                        <>
+                            <ul className={isMenuOpen ? 'show' : ''}>
+                                <li onClick={() => handleNavigation("/admindash")}>Admin Dashboard</li>
+                                <li onClick={() => handleNavigation("/myclients")}>My Client</li>
+                            </ul>
+                            <button className="logout-button" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        // User-specific navbar
+                        <>
+                            <ul className={isMenuOpen ? 'show' : ''}>
+                                <li onClick={() => handleNavigation("/home")}>Home</li>
+                            </ul>
+                            <button className="logout-button" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </>
+                    )
                 ) : (
+                    // Guest-specific navbar
                     <>
                         <ul className={isMenuOpen ? 'show' : ''}>
-                            <li onClick={() => navigate("/")}>Home</li>
-                            <li onClick={() => navigate("/login")}>Login</li>
-                            <li onClick={() => navigate("/register")}>Register</li>
+                            <li onClick={() => handleNavigation("/home")}>Home</li>
+                            <li onClick={() => handleNavigation("/login")}>Login</li>
+                            <li onClick={() => handleNavigation("/register")}>Register</li>
                         </ul>
                     </>
                 )}
