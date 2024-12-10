@@ -12,7 +12,7 @@ const UserDetails = ({ userId, onBack }) => {
     useEffect(() => {
         const fetchUserDetails = async () => {
             try {
-                const response = await axios.get(`https://mortgage-backend-jo6l.onrender.com/users/${userId}`);
+                const response = await axios.get(`http://127.0.0.1:8000/users/${userId}`);
                 setUserDetails(response.data);
                 updateUserData(response.data);
             } catch (error) {

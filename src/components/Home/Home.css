@@ -1,7 +1,8 @@
 .main-div {
   margin-top: 55px;
+  margin-top: none;
   display: flex;
-  height: 120vh;
+  height: 130vh;
   flex-direction: row;
   background-color: #f4f4f4;
 }
@@ -19,9 +20,9 @@
 }
 
 .home {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 80%;
   padding: 20px;
@@ -53,14 +54,6 @@
   padding: 5px;
   border: solid black 1px;
 }
-
-.pound-symbol{
-  border: solid rgb(84, 82, 82) 0.5px;
-  padding: 7.5px 5px;
-  margin-right: none;
-  border-radius: 5px 0px 0px 5px;
-}
-
 
 .navigation-buttons {
   display: flex;
@@ -125,6 +118,7 @@
 @media only screen and (max-width: 668px) {
   .main-div {
     flex-direction: column;
+    height: 100%;
   }
 
   .user-details {

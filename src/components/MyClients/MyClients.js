@@ -15,10 +15,10 @@ export default function MyClients() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('https://mortgage-backend-jo6l.onrender.com/users/');
+                const response = await axios.get('http://127.0.0.1:8000/users/');
                 const data = response.data
-                console.log(data.response)
-                setUsers(data.response);
+                console.log(data)
+                setUsers(data);
 
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -37,7 +37,7 @@ export default function MyClients() {
                             <tr>
                                 <th>Sr. No.</th>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Username</th>
                                 <th>Email</th>
                                 <th>Contact Number</th>
                                 <th>Has Mortgage?</th>
@@ -52,7 +52,7 @@ export default function MyClients() {
                                     className="user-row"
                                 >
                                     <td>{index + 1}</td>
-                                    <td>{user.name}</td>
+                                    <td>{user.id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.email}</td>
                                     <td>{user.contactnumber}</td>

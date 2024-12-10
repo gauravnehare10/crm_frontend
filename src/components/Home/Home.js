@@ -16,7 +16,7 @@ const Home = () => {
   // States for mortgage details
   const [hasMortgage, setHasMortgage] = useState(null);
   const [isLookingForMortgage, setLookForMortgage] = useState(null);
-  const [mortgageCount, setMortgageCount] = useState(1);
+  const [mortgageCount, setMortgageCount] = useState('');
   const [resOrBuyToLet, setResOrBuyToLet] = useState('');
   const [mortgageType, setMortgageType] = useState('');
   const [mortgageAmount, setMortgageAmount] = useState('');
@@ -104,8 +104,8 @@ const Home = () => {
         };
 
     try {
-      const response = await axios.put(
-        `https://mortgage-backend-jo6l.onrender.com/mortgage/${userdata.username}`,
+      const response = await axios.post(
+        `http://127.0.0.1:8000/add_mortgage_data`,
         data
       );
       console.log('Response:', response.data);
@@ -113,12 +113,13 @@ const Home = () => {
         Object.entries(data).map(([key, value]) => [key, String(value)])
       );
       updateMortgage(stringifiedData);
-      setShowQuestions(false); // Hide questions after submission
+      setShowQuestions(false);
+      setIsCheckboxChecked(false);
       alert('Data submitted successfully.');
       navigate('/home');
     } catch (error) {
       console.error('Error submitting data:', error);
-      alert('Failed to submit data.');
+      alert('Failed to submit data.', error);
     }
   };
 
@@ -193,6 +194,7 @@ const Home = () => {
                       <td><label>How many mortgages do you have?</label></td>
                       <td>
                           <select className="inp-data" value={mortgageCount} onChange={(e) => setMortgageCount(e.target.value)}>
+                            <option value="">Select</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -356,12 +358,12 @@ const Home = () => {
       <>
         <div className="nav-buttons">
           <div>
+            <label htmlFor="agreement-checkbox">
             <input
               type="checkbox"
               id="agreement-checkbox"
               onChange={(e) => setIsCheckboxChecked(e.target.checked)}
             />
-            <label htmlFor="agreement-checkbox">
             By submitting this form, you agree to our processing of your personal data in accordance with GDPR and our Privacy Policy.
             </label>
           </div>
@@ -380,11 +382,11 @@ const Home = () => {
       <div className="thank-you-message">
         <h6>Thank you for submitting your responses! Our team will contact you soon.</h6>
         <div className="navigation-buttons">
-          <button className="edit-resp" onClick={() => setShowQuestions(true)}>Edit Response</button>
+          <button className="edit-resp" onClick={() => setShowQuestions(true)}>Add Response</button>
           <button className="view-resp" onClick={viewResponses}>View Response</button>
         </div>
       </div>
-        )}
+      )}
       </div>
     </div>
   );

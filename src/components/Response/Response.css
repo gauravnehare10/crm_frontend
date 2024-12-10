@@ -50,11 +50,11 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
-    gap: 10px; /* Space between buttons */
+    gap: 10px;
   }
   
   .profile-button {
-    flex: 1; /* Ensure buttons take equal space */
+    flex: 1;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -79,49 +79,77 @@
   .back-button:hover {
     background-color: #cd1d1a;
   }
+
+  .mortgage-button{
+    border: none;
+    border-radius: 5px;
+    margin: 5px;
+    padding: 5px;
+    background-color: #e0e0e0;
+  }
+
+  .mortgage-button:hover{
+    background-color: #bcbcbc;
+  }
+
+  .mortgage-close-button{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(212, 0, 0);
+    color: white;
+    padding: 5px;
+  }
+
+  .mortgage-close-button:hover{
+    background-color: #a00704;
+  }
   
-  /* Media Queries for Responsiveness */
+  .mortgage-detail-popup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   @media (max-width: 768px) {
     .profile-container {
-      width: 80%; /* Narrower width on smaller screens */
+      width: 80%;
       padding: 15px;
     }
   
     .profile-row {
-      flex-direction: column; /* Stack rows */
-      align-items: flex-start; /* Align items to the start */
+      flex-direction: column;
+      align-items: flex-start;
     }
   
     .profile-value {
-      text-align: left; /* Align values to the left */
-      margin-top: 5px; /* Add some spacing */
+      text-align: left;
+      margin-top: 5px;
     }
   
     .profile-buttons {
-      flex-direction: column; /* Stack buttons vertically */
+      flex-direction: column;
     }
   
     .profile-button {
-      width: 100%; /* Full width for better touch experience */
-      margin-bottom: 10px; /* Space between buttons */
+      width: 100%;
+      margin-bottom: 10px;
     }
   
     .profile-button:last-child {
-      margin-bottom: 0; /* Remove margin for the last button */
+      margin-bottom: 0;
     }
   }
   
   @media (max-width: 480px) {
     h1 {
-      font-size: 1.5rem; /* Smaller font for smaller screens */
+      font-size: 1.5rem;
     }
   
     .profile-card {
-      padding: 15px; /* Reduce padding for small screens */
+      padding: 15px;
     }
   
     .profile-button {
-      font-size: 14px; /* Smaller buttons for smaller screens */
+      font-size: 14px;
       padding: 8px 15px;
     }
   }

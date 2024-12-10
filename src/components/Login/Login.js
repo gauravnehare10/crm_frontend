@@ -25,7 +25,7 @@ const Login = () => {
     }
   
     setError('');
-    const endpoint = isAdmin ? 'https://mortgage-backend-jo6l.onrender.com/admin/login' : 'https://mortgage-backend-jo6l.onrender.com/login';
+    const endpoint = isAdmin ? 'http://127.0.0.1:8000/admin/login' : 'http://127.0.0.1:8000/login';
   
     axios.post(endpoint, {
       username: username.toLowerCase(), // Normalize username to lowercase

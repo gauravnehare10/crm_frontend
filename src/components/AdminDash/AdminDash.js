@@ -5,16 +5,39 @@ import './AdminDash.css';
 const AdminDash = () => {
   const navigate = useNavigate();
   const [adminDetails, setAdminDetails] = useState(null);
+  const [stats, setStats] = useState({
+    total_count: 0,
+    has_mortgage_count: 0,
+    is_looking_for_mortgage_count: 0,
+  });
 
   useEffect(() => {
-    // Check if the admin is logged in by looking for a token or a flag in localStorage
     const isLoggedIn = localStorage.getItem('admin_details');
     if (!isLoggedIn) {
       navigate('/login');
     } else {
-      // Parse the stored admin details and set state
       setAdminDetails(JSON.parse(isLoggedIn));
     }
+
+    const fetchCounts = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/counts'); // Replace with your FastAPI endpoint URL
+        if (response.ok) {
+          const data = await response.json();
+          setStats({
+            total_count: data.total_count,
+            has_mortgage_count: data.has_mortgage_count,
+            is_looking_for_mortgage_count: data.is_looking_for_mortgage_count,
+          });
+        } else {
+          console.error('Failed to fetch counts:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching counts:', error);
+      }
+    };
+
+    fetchCounts();
   }, [navigate]);
 
   return (
@@ -36,16 +59,16 @@ const AdminDash = () => {
           )}
           <div className="stats">
             <div className="stat-item">
-              <h3>120</h3>
-              <p>Active Users</p>
+              <h3>{stats.total_count}</h3>
+              <p>All Clients</p>
             </div>
             <div className="stat-item">
-              <h3>45</h3>
-              <p>Pending Requests</p>
+              <h3>{stats.has_mortgage_count}</h3>
+              <p>Has Mortgage</p>
             </div>
             <div className="stat-item">
-              <h3>10</h3>
-              <p>System Alerts</p>
+              <h3>{stats.is_looking_for_mortgage_count}</h3>
+              <p>Looking for Mortgage</p>
             </div>
           </div>
         </section>

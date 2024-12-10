@@ -12,7 +12,7 @@ const EditUser = () => {
     const [username, setUsername] = useState(userdata.username);
     const [email, setEmail] = useState(userdata.email);
     const [contactNumber, setContactNumber] = useState(userdata.contactnumber);
-    const [hasMortgage, setHasMortgage] = useState(userdata.hasMortgage); // Initially null
+    const [hasMortgage, setHasMortgage] = useState(userdata.hasMortgage);
     const [mortgageCount, setMortgageCount] = useState(userdata.mortgageCount);
     const [resOrBuyToLet, setResOrBuyToLet] = useState(userdata.resOrBuyToLet);
     const [mortgageAmount, setMortgageAmount] = useState(userdata.mortgageAmount);
@@ -97,7 +97,7 @@ const EditUser = () => {
         try {
         console.log(data)
           const response = await axios.put(
-            `https://mortgage-backend-jo6l.onrender.com/mortgage/${username}`,
+            `http://127.0.0.1:8000/mortgage/${username}`,
             data
           );
           console.log('Response:', response.data);

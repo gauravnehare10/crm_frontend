@@ -52,33 +52,40 @@ const Register = () => {
       return;
     }
 
-    axios.post('https://mortgage-backend-jo6l.onrender.com/register', {
-      name: name,
-      username: username,
-      password: password,
-      email: email,
-      contactnumber: contactNumber
-    })
-    .then((response) => {
-      console.log('Registration successful:', response.data);
-      setSuccess('Registration successful!');
-      updateUserData({
-        name : name,
-        username: username.toLowerCase(),
+    axios
+      .post('http://127.0.0.1:8000/register', {
+        name: name,
+        username: username,
+        password: password,
         email: email,
-        contactnumber: contactNumber
+        contactnumber: contactNumber,
       })
-      localStorage.setItem("username", username.toLowerCase());
-      navigate('/home');
-    })
-    .catch((error) => {
-      console.error('Registration error:', error);
-      if (error.response && error.response.data.error) {
-        setError(error.response.data.error);
-      } else {
-        setError('Something went wrong. Please try again.');
-      }
-    });
+      .then((response) => {
+        console.log('Registration successful:', response.data);
+        setSuccess('Registration successful!');
+        updateUserData({
+          name: name,
+          username: username.toLowerCase(),
+          email: email,
+          contactnumber: contactNumber,
+        });
+        localStorage.setItem('username', username.toLowerCase());
+        navigate('/home');
+      })
+      .catch((error) => {
+        console.error('Registration error:', error);
+        if (error.response && error.response.data.detail) {
+          if (error.response.data.detail === 'Username already exists.') {
+            window.alert('Username already exists. Please choose another username.');
+          } else if (error.response.data.detail === 'Email already exists.') {
+            window.alert('Email already exists. Please use a different email.');
+          } else {
+            setError(error.response.data.detail);
+          }
+        } else {
+          setError('Something went wrong. Please try again.');
+        }
+      });
   };
 
   return (
