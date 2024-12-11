@@ -22,22 +22,31 @@ export default function Response() {
       }
     };
     fetchUserDetails();
-  }, [userdata.id]);
+  }, [userdata.username]);
+
+  const handleDelete = async (id, type) => {
+    try {
+      await axios.delete(`http://127.0.0.1:8000/delete-response/${id}?type=${type}`);
+      // Remove the deleted item from the state
+      setUserDetails((prevDetails) => {
+        if (type === 'existing') {
+          return {
+            ...prevDetails,
+            mortgage_details: prevDetails.mortgage_details.filter((item) => item._id !== id),
+          };
+        } else {
+          return {
+            ...prevDetails,
+            new_mortgage_requests: prevDetails.new_mortgage_requests.filter((item) => item._id !== id),
+          };
+        }
+      });
+    } catch (error) {
+      console.error('Error deleting response:', error);
+    }
+  };
 
   if (!userDetails) return <p>Loading user details...</p>;
-
-  const handleButtonClick = (mortgage) => {
-    setSelectedMortgage(mortgage);
-  };
-
-  const handleNewMortgageClick = (newMortgage) => {
-    setSelectedNewMortgage(newMortgage);
-  };
-
-  const handleClose = () => {
-    setSelectedMortgage(null);
-    setSelectedNewMortgage(null);
-  };
 
   return (
     <div>
@@ -64,15 +73,21 @@ export default function Response() {
 
             <div className="profile-row">
               <span className="profile-label">Existing Mortgage Details</span>
-              {userDetails.mortgage_details.length > 0 ? (
+              {userDetails?.mortgage_details?.length > 0 ? (
                 <div className="mortgage-details">
-                  {userDetails.mortgage_details.map((mortgage, index) => (
-                    <div key={mortgage._id || index} className="mortgage-item">
+                  {userDetails.mortgage_details.map((mortgage) => (
+                    <div key={mortgage._id} className="mortgage-item">
                       <button
                         className="mortgage-button"
-                        onClick={() => handleButtonClick(mortgage)}
+                        onClick={() => setSelectedMortgage(mortgage)}
                       >
-                        View Mortgage Response {index + 1}
+                        View Existing Mortgage
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDelete(mortgage._id, 'existing')}
+                      >
+                        Delete
                       </button>
                     </div>
                   ))}
@@ -84,15 +99,21 @@ export default function Response() {
 
             <div className="profile-row">
               <span className="profile-label">New Mortgage Requests</span>
-              {userDetails.new_mortgage_requests.length > 0 ? (
+              {userDetails?.new_mortgage_requests?.length > 0 ? (
                 <div className="new-mortgage-details">
-                  {userDetails.new_mortgage_requests.map((newMortgage, index) => (
-                    <div key={newMortgage._id || index} className="new-mortgage-item">
+                  {userDetails.new_mortgage_requests.map((newMortgage) => (
+                    <div key={newMortgage._id} className="new-mortgage-item">
                       <button
                         className="mortgage-button"
-                        onClick={() => handleNewMortgageClick(newMortgage)}
+                        onClick={() => setSelectedNewMortgage(newMortgage)}
                       >
-                        View New Mortgage Response {index + 1}
+                        View New Mortgage
+                      </button>
+                      <button
+                        className="delete-button"
+                        onClick={() => handleDelete(newMortgage._id, 'new')}
+                      >
+                        Delete
                       </button>
                     </div>
                   ))}
@@ -105,32 +126,28 @@ export default function Response() {
             {selectedMortgage && (
               <div className="mortgage-detail-popup">
                 <h2>Existing Mortgage Details</h2>
-                <p><strong>Has Mortgage:</strong>{ selectedMortgage.hasMortgage ?(<> Yes </>) : (<>No</>)}</p>
+                <p><strong>Has Mortgage:</strong> {selectedMortgage.hasMortgage ? 'Yes' : 'No'}</p>
                 <p><strong>Mortgage Type:</strong> {selectedMortgage.mortgageType}</p>
                 <p><strong>Mortgage Count:</strong> {selectedMortgage.mortgageCount}</p>
                 <p><strong>Residential/Buy to Let:</strong> {selectedMortgage.resOrBuyToLet}</p>
                 <p><strong>Amount:</strong> {selectedMortgage.mortgageAmount}</p>
                 <p><strong>Renewal Date:</strong> {selectedMortgage.renewalDate}</p>
-                <button className="mortgage-close-button" onClick={handleClose}>Close</button>
+                <button className="mortgage-close-button" onClick={() => setSelectedMortgage(null)}>Close</button>
               </div>
             )}
 
             {selectedNewMortgage && (
               <div className="mortgage-detail-popup">
                 <h2>New Mortgage Details</h2>
-                <p><strong>Is looking For Mortgage:</strong>{ selectedNewMortgage.isLookingForMortgage?(<> Yes </>) : (<>No</>)}</p>
+                <p><strong>Is Looking For Mortgage:</strong> {selectedNewMortgage.isLookingForMortgage ? 'Yes' : 'No'}</p>
                 <p><strong>New Mortgage Amount:</strong> {selectedNewMortgage.newMortgageAmount}</p>
                 <p><strong>Ownership Type:</strong> {selectedNewMortgage.ownershipType}</p>
                 <p><strong>Annual Income:</strong> {selectedNewMortgage.annualIncome}</p>
-                <p><strong>Deposite Amount:</strong> {selectedNewMortgage.depositeAmt}</p>
+                <p><strong>Deposit Amount:</strong> {selectedNewMortgage.depositeAmt}</p>
                 <p><strong>Property Found?</strong> {selectedNewMortgage.foundProperty}</p>
-                
-                
-                
-                <button className="mortgage-close-button" onClick={handleClose}>Close</button>
+                <button className="mortgage-close-button" onClick={() => setSelectedNewMortgage(null)}>Close</button>
               </div>
             )}
-
             <div className="profile-buttons">
               <button className="profile-button back-button" onClick={() => navigate("/home")}>
                 Back

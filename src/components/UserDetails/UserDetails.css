@@ -3,7 +3,6 @@
     padding: 20px;
     font-family: Arial, sans-serif;
     max-width: 800px;
-    margin-top: 50px;
     margin: auto;
 }
 
@@ -49,10 +48,31 @@
     text-align: left;
     border: 1px solid #ddd;
 }
+.mortgage-edit-button{
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: rgb(1, 203, 1);
+    color: white;
+}
+
+.mortgage-edit-button:hover{
+    background-color: green;
+}
 
 th {
     background-color: #f4f4f4;
     font-weight: bold;
+}
+
+.ad-mortgage-detail-popup{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.ad-mortgage-detail-popup > table{
+    width: 100%;
 }
 
 /* Mobile responsiveness */

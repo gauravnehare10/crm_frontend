@@ -21,13 +21,13 @@ const AdminDash = () => {
 
     const fetchCounts = async () => {
       try {
-        const response = await fetch('http://localhost:8000/counts'); // Replace with your FastAPI endpoint URL
+        const response = await fetch('http://localhost:8000/count_mortgages'); // Replace with your FastAPI endpoint URL
         if (response.ok) {
           const data = await response.json();
           setStats({
             total_count: data.total_count,
             has_mortgage_count: data.has_mortgage_count,
-            is_looking_for_mortgage_count: data.is_looking_for_mortgage_count,
+            is_looking_for_mortgage_count: data.looking_for_mortgage_count,
           });
         } else {
           console.error('Failed to fetch counts:', response.statusText);
@@ -51,8 +51,8 @@ const AdminDash = () => {
           {adminDetails ? (
             <div className="admin-details">
               <h3>Welcome, {adminDetails.name}!</h3>
-              <p>Email: {adminDetails.email}</p>
-              <p>Contact: {adminDetails.contactnumber}</p>
+              {/* <p>Email: {adminDetails.email}</p>
+              <p>Contact: {adminDetails.contactnumber}</p> */}
             </div>
           ) : (
             <p>Loading admin details...</p>

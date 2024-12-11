@@ -80,6 +80,18 @@
     background-color: #cd1d1a;
   }
 
+  .delete-button{
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(234, 177, 177);
+    color: rgb(39, 35, 35);
+    padding: 5px;
+  }
+
+  .delete-button:hover{
+    background-color: #c07876;
+  }
+
   .mortgage-button{
     border: none;
     border-radius: 5px;
@@ -137,6 +149,7 @@
     .profile-button:last-child {
       margin-bottom: 0;
     }
+    
   }
   
   @media (max-width: 480px) {
@@ -151,6 +164,14 @@
     .profile-button {
       font-size: 14px;
       padding: 8px 15px;
+    }
+    .mortgage-button{
+      font-size: small;
+      width: auto;
+    }
+    .delete-button{
+      font-size: small;
+      width: auto;
     }
   }
   
