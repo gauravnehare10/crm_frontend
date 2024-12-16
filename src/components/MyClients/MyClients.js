@@ -17,7 +17,7 @@ export default function MyClients() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/users/');
+                const response = await axios.get('https://mortgage-backend-476d.onrender.com/users/');
                 const data = response.data;
                 setUsers(data);
                 console.log(data)
@@ -49,7 +49,7 @@ export default function MyClients() {
                                     onClick={() => setSelectedUserName(user.username)}
                                     className="user-row"
                                 >
-                                    <td>{index + 1}</td>
+                                    <td>{index + 1}.</td>
                                     <td>{user.id}</td>
                                     <td>{user.username}</td>
                                     <td>{user.email}</td>

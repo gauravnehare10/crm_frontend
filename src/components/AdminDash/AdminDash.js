@@ -21,7 +21,7 @@ const AdminDash = () => {
 
     const fetchCounts = async () => {
       try {
-        const response = await fetch('http://localhost:8000/count_mortgages'); // Replace with your FastAPI endpoint URL
+        const response = await fetch('https://mortgage-backend-476d.onrender.com/count_mortgages');
         if (response.ok) {
           const data = await response.json();
           setStats({

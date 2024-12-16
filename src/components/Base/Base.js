@@ -5,20 +5,15 @@ export default function Base() {
   return (
     <div className="base">
       <header className="base-header">
-        <h1>Welcome to Our Application!</h1>
-        <p>Discover how our app can simplify your daily tasks and enhance your productivity.</p>
+        <h1>Welcome to AAI Financials!</h1>
+        <p>Where we prioritize your financial journey with trust, transparency, and expertise</p>
       </header>
       <section className="base-details">
-        <h2>About Our Application</h2>
-        <p>Our application is designed to provide seamless user experiences tailored to your needs. With intuitive navigation and advanced features, we aim to make your workflow more efficient and enjoyable.</p>
-        <p>Key Features:</p>
-        <ul>
-          <li>User-friendly interface for easy navigation</li>
-          <li>Real-time data syncing and updates</li>
-          <li>Secure user authentication and data protection</li>
-          <li>Customizable settings to fit your preferences</li>
-        </ul>
-        <p>Join thousands of satisfied users who have enhanced their productivity with our app. Start exploring today!</p>
+        <h2>About Us</h2>
+        <p>As independent mortgage advisors, we have a holistic view of the mortgage market, giving us access to a wide range of lenders and products. This allows us to tailor solutions that best fit your unique needs.
+        </p>
+        <p>Whether you're buying your first home, remortgaging, or exploring investment opportunities, we are here to secure the best deal for you.</p>
+        <p>Our commitment is to guide you every step of the way, making the process smooth and stress-free while ensuring you achieve your homeownership goals with confidence. Let's build your future together.</p>
       </section>
     </div>
   );

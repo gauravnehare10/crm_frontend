@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import useStore from '../../store';
 import useMortgageStore from '../../morgageStore';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false); // Toggle for admin/user login
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
@@ -25,30 +24,23 @@ const Login = () => {
     }
   
     setError('');
-    const endpoint = isAdmin ? 'http://127.0.0.1:8000/admin/login' : 'http://127.0.0.1:8000/login';
+    const endpoint = 'https://mortgage-backend-476d.onrender.com/login';
   
     axios.post(endpoint, {
-      username: username.toLowerCase(), // Normalize username to lowercase
+      username: username.toLowerCase(),
       password: password
     })
     .then((response) => {
       console.log('Login successful:', response.data);
       setSuccess('Logged in Successfully.');
       
-      const { access_token, ...details } = response.data;
-      localStorage.setItem("token", access_token);
-  
-      if (isAdmin) {
-        const { admin_details } = details;
-        localStorage.setItem("admin_details", JSON.stringify(admin_details));
-        navigate("/admindash");
-      } else {
-        const { user_details, mortgage } = details;
-        updateUserData(user_details);
-        updateMortgage(mortgage);
-        localStorage.setItem("username", username.toLowerCase());
-        navigate("/home");
-      }
+    const { access_token, ...details } = response.data;
+    localStorage.setItem("token", access_token);
+      const { user_details, mortgage } = details;
+      updateUserData(user_details);
+      updateMortgage(mortgage);
+      localStorage.setItem("username", username.toLowerCase());
+      navigate("/home");
     })
     .catch((error) => {
       console.error('Login error:', error);
@@ -58,8 +50,12 @@ const Login = () => {
 
   return (
     <div className='login-main'>
+      <div className="my-content">
+        <h2 style={{'color': 'darkgreen'}}><strong><em>AAI Financials</em></strong></h2>
+        <p><em>Your trusted partner for tailored mortgage solutions and a stress-free financial journey. Let's achieve your homeownership dreams together!</em></p>
+      </div>
       <div className="login-container">
-        <h2>Login</h2>
+        <h2><strong>Login</strong></h2>
         <form onSubmit={handleSubmit} className="login-form">
           {error && <p className="error-message">{error}</p>}
           {success && <p style={{ color: 'green' }}>{success}</p>}
@@ -85,18 +81,8 @@ const Login = () => {
             />
           </div>
 
-          <div className="form-group">
-            <label>
-              <input
-                type="checkbox"
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              />
-              Login as Admin
-            </label>
-          </div>
-
           <button type="submit" className="login-button">Login</button>
+          <Link to='/forgot-password' style={{margin:'10px 0'}}>Forgot Password?</Link>
         </form>
       </div>
     </div>

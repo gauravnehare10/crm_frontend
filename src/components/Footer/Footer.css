@@ -2,8 +2,9 @@
 .footer {
   background-color: #2c3e50;
   color: #ecf0f1;
-  padding: 20px 0;
+  padding: 5px 0;
   font-family: Arial, sans-serif;
+  animation: fadeIn 1.5s ease-in-out;
 }
 
 .footer-container {
@@ -19,27 +20,45 @@
   flex: 1;
   margin: 10px;
   min-width: 250px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.footer-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .footer-section h4 {
-  font-size: 1.2rem;
+  font-size: 1rem;
   margin-bottom: 10px;
   color: #e74c3c;
+  transition: color 0.3s ease;
+}
+
+.footer-section h4:hover {
+  color: #e67e22;
 }
 
 .footer-section p {
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   line-height: 1.6;
   margin: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.footer-section p:hover {
+  color: #bdc3c7;
 }
 
 .footer-section a {
   color: #1abc9c;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
 .footer-section a:hover {
   text-decoration: underline;
+  color: #16a085;
 }
 
 .footer-copyright {
@@ -48,8 +67,31 @@
   font-size: 0.8rem;
   border-top: 1px solid #7f8c8d;
   padding-top: 10px;
+  animation: fadeInUp 1s ease-in-out;
 }
 
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Media Queries */
 @media screen and (max-width: 768px) {
   .footer-container {
     flex-direction: column;
@@ -58,12 +100,13 @@
 
   .footer-section {
     text-align: center;
+    animation: fadeInUp 1s ease-in-out;
   }
 }
 
 @media screen and (max-width: 480px) {
   .footer {
-    padding: 15px 10px;
+    padding: 5px 5px;
   }
 
   .footer-section h4 {

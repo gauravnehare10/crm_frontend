@@ -20,6 +20,8 @@ const Home = () => {
   const [resOrBuyToLet, setResOrBuyToLet] = useState('');
   const [mortgageType, setMortgageType] = useState('');
   const [mortgageAmount, setMortgageAmount] = useState('');
+  const [mortgageAmount2, setMortgageAmount2] = useState('');
+  const [mortgageAmount3, setMortgageAmount3] = useState('');
   const [renewalDate, setRenewalDate] = useState('');
   const [newMortgageAmount, setNewMortgageAmount] = useState('');
   const [ownershipType, setOwnershipType] = useState('');
@@ -64,6 +66,11 @@ const Home = () => {
         alert('Please fill out all the fields related to your mortgage.');
         return;
       }
+
+      if ((mortgageCount === '2' && !mortgageAmount2) || (mortgageCount === '3' && (!mortgageAmount2 || !mortgageAmount3))){
+        alert('Please enter all mortgage Amount.')
+        return
+      }
   
       if (mortgageType === 'fixed' && !renewalDate) {
         alert('Please enter the mortgage renewal or fixed-term end date.');
@@ -89,6 +96,8 @@ const Home = () => {
           resOrBuyToLet,
           mortgageType,
           mortgageAmount,
+          mortgageAmount2,
+          mortgageAmount3,
           renewalDate,
           username: userdata.username,
         }
@@ -103,9 +112,11 @@ const Home = () => {
           username: userdata.username,
         };
 
+    console.log(data);
+
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/add_mortgage_data`,
+        `https://mortgage-backend-476d.onrender.com/add_mortgage_data`,
         data
       );
       console.log('Response:', response.data);
@@ -115,6 +126,8 @@ const Home = () => {
       updateMortgage(stringifiedData);
       setShowQuestions(false);
       setIsCheckboxChecked(false);
+      setMortgageAmount2("");
+      setMortgageAmount3("");
       alert('Data submitted successfully.');
       navigate('/home');
     } catch (error) {
@@ -158,6 +171,21 @@ const Home = () => {
           </div>
         )}
       </div>
+      <div style={{'width': '90%'}}>
+      <div className="aai-financials-info">
+        <h2>Welcome to AAI Financials</h2>
+        <div className='aai-financials-details'>
+          <p>
+            Where we prioritize your financial journey with trust, transparency, and expertise.
+          </p>
+          <p>
+            As independent mortgage advisors, we have a holistic view of the mortgage market, giving us access to a wide range of lenders and products. This allows us to tailor solutions that best fit your unique needs.
+          </p>
+          <p>
+            Whether you're buying your first home, remortgaging, or exploring investment opportunities, we are here to secure the best deal for you. Our commitment is to guide you every step of the way, making the process smooth and stress-free while ensuring you achieve your homeownership goals with confidence. Let's build your future together.
+          </p>
+        </div>
+      </div>
       <div className="home">
       <table className="table w-75">
         {isLoggedIn && showQuestions && (
@@ -198,10 +226,31 @@ const Home = () => {
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
-                            <option value="more">More</option>
                           </select>
                       </td>
                     </tr>
+                    <tr className="st-item">
+                      <td><label>Mortgage amount:</label></td>
+                      <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount} onChange={(e) => setMortgageAmount(e.target.value)} required /></td>
+                    </tr>
+                    { mortgageCount === "2" && (
+                      <tr className="st-item">
+                      <td><label>Mortgage-2 amount:</label></td>
+                      <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount2} onChange={(e) => setMortgageAmount2(e.target.value)} required /></td>
+                    </tr>
+                    )}
+                    { mortgageCount === "3" && (
+                      <>
+                      <tr className="st-item">
+                        <td><label>Mortgage-2 amount:</label></td>
+                        <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount2} onChange={(e) => setMortgageAmount2(e.target.value)} required /></td>
+                      </tr>
+                      <tr className="st-item">
+                        <td><label>Mortgage-3 amount:</label></td>
+                        <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount3} onChange={(e) => setMortgageAmount3(e.target.value)} required /></td>
+                      </tr>
+                      </>
+                    )}
                     <tr className="st-item"> 
                       <td><label>Are they?</label></td>
                       <td>
@@ -209,6 +258,7 @@ const Home = () => {
                             <option value="">Select</option>
                             <option value="residential">Residential</option>
                             <option value="buy to let">Buy to Let</option>
+                            <option value="both">Both</option>
                           </select>
                       </td>
                     </tr>
@@ -237,11 +287,7 @@ const Home = () => {
                         />
                       </td>
                     </tr>
-                  )}
-                    <tr className="st-item">
-                      <td><label>Mortgage amount:</label></td>
-                      <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount} onChange={(e) => setMortgageAmount(e.target.value)} required /></td>
-                    </tr>                  
+                  )}                 
                   </>
                 )}
                 {!hasMortgage && (
@@ -364,7 +410,7 @@ const Home = () => {
               id="agreement-checkbox"
               onChange={(e) => setIsCheckboxChecked(e.target.checked)}
             />
-            By submitting this form, you agree to our processing of your personal data in accordance with GDPR and our Privacy Policy.
+            &nbsp;By submitting this form, you agree to our processing of your personal data in accordance with GDPR and our Privacy Policy.
             </label>
           </div>
         </div>
@@ -380,13 +426,14 @@ const Home = () => {
       )}
       {!showQuestions && (
       <div className="thank-you-message">
-        <h6>Thank you for submitting your responses! Our team will contact you soon.</h6>
+        <h6>Thank you for submitting your details! Our team will contact you soon.</h6>
         <div className="navigation-buttons">
-          <button className="edit-resp" onClick={() => setShowQuestions(true)}>Add Response</button>
-          <button className="view-resp" onClick={viewResponses}>View Response</button>
+          <button className="edit-resp" onClick={() => setShowQuestions(true)}>Add Details</button>
+          <button className="view-resp" onClick={viewResponses}>View Details</button>
         </div>
       </div>
       )}
+      </div>
       </div>
     </div>
   );

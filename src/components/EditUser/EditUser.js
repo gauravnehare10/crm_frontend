@@ -1,30 +1,34 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useStore from '../../store';
+import { useLocation, useNavigate } from 'react-router-dom';
 import './EditUser.css';
 import axios from 'axios';
 
 const EditUser = () => {
     const navigate = useNavigate();
-    const { userdata } = useStore();
+    const location = useLocation();
+    const userData = location.state;
 
-    const [name, setName] = useState(userdata.name);
-    const [username, setUsername] = useState(userdata.username);
-    const [email, setEmail] = useState(userdata.email);
-    const [contactNumber, setContactNumber] = useState(userdata.contactnumber);
+    const [name, setName] = useState(userData.name);
+    const [username, setUsername] = useState(userData.username);
+    const [email, setEmail] = useState(userData.email);
+    const [contactNumber, setContactNumber] = useState(userData.contactnumber);
     
 
     const handleCancle = () =>{
-        localStorage.removeItem('user');
-        navigate("/myclients")
+        if (userData.isAdmin){
+            navigate("/myclients");
+        }
+        else if(userData.isUser){
+            navigate("/response");
+        }
     }
 
     const submitData = async () => {
         try {
-            const userId = userdata.id;
+            const userId = userData.id;
             const updatedData = { name, username, email, contactnumber: contactNumber };
             console.log(updatedData)
-            const response = await axios.put(`http://localhost:8000/users/${userId}`, updatedData);
+            const response = await axios.put(`https://mortgage-backend-476d.onrender.com/users/${userId}`, updatedData);
             console.log(response.data);
             alert("User updated successfully!");
             navigate("/myclients");
@@ -41,7 +45,7 @@ const EditUser = () => {
                 <tbody>
                     <tr>
                         <th>ID</th>
-                        <td>{userdata.id}</td>
+                        <td>{userData.id}</td>
                     </tr>
                     <tr>
                         <th>Name</th>

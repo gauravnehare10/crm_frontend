@@ -53,7 +53,7 @@ const Register = () => {
     }
 
     axios
-      .post('http://127.0.0.1:8000/register', {
+      .post('https://mortgage-backend-476d.onrender.com/register', {
         name: name,
         username: username,
         password: password,
@@ -91,7 +91,7 @@ const Register = () => {
   return (
     <div className='register-main'>
       <div className="register-container">
-        <h2>Register</h2>
+        <h2><strong>Register</strong></h2>
         <form onSubmit={handleSubmit} className="register-form">
           {error && <p className="error-message">{error}</p>}
           {success && <p style={{ color: 'green' }}>{success}</p>}

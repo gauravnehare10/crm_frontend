@@ -7,25 +7,20 @@ const Footer = () => {
       <div className="footer-container">
         {/* About the App */}
         <div className="footer-section">
-          <h4>Banking App</h4>
+          <h4>AAI Financials</h4>
           <p>
-            A secure and user-friendly platform for managing your finances. 
-            Experience hassle-free banking services at your fingertips.
+          Think carefully before securing other debts against your home. 
+          Your home or property may be repossessed if you do not keep up repayments on your mortgage. 
           </p>
+          <p>AAI Financials is a trading name of ANAYASD Limited which is registered in England & Wales No 09674951</p>
         </div>
 
-        {/* Contact Information */}
+        
         <div className="footer-section">
-          <h4>Contact Us</h4>
-          <p>Email: support@bankingapp.com</p>
-          <p>Phone: +1 123 456 7890</p>
-          <p>Address: 123 Finance Street, Banking City, 45678</p>
+          <p>ANAYASD Limited works with Linear Mortgage</p>
+          <p>Linear Mortgage Network Limited who are an Appointed Representative of PRIMIS Mortgage Network, a trading name of Advance Mortgage Funding Ltd.</p>
+          <p>Advance Mortgage Funding Ltd is authorised and regulated by the Financial Conduct Authority.</p>
         </div>
-      </div>
-
-      {/* Copyright Section */}
-      <div className="footer-copyright">
-        <p>© {new Date().getFullYear()} Banking App. All rights reserved.</p>
       </div>
     </footer>
   );

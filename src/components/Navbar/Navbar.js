@@ -13,14 +13,21 @@ export default function Navbar() {
     };
 
     const handleLogout = () => {
-        localStorage.clear();
-        navigate("/login");
-        alert("Logged Out Successfully...");
+        if (isAdmin){
+            localStorage.clear();
+            navigate("/admin/login");
+            alert("Logged Out Successfully...");
+        }
+        else{
+            localStorage.clear();
+            navigate("/login");
+            alert("Logged Out Successfully...");
+        }
     };
 
     const handleNavigation = (path) => {
         navigate(path);
-        setIsMenuOpen(false); // Close the menu after navigation
+        setIsMenuOpen(false); 
     };
 
     const username = localStorage.getItem("username");
@@ -28,7 +35,7 @@ export default function Navbar() {
     return (
         <div className="navbar-container">
             <div className="dash-navbar" onClick={toggleMenu}>
-                <h2>{isLoggedIn ? (isAdmin ? "Admin" : username) : "Hey Guest !!"}</h2>
+                <h2>{isLoggedIn ? (isAdmin ? "Admin" : username) : "AAI Financials"}</h2>
             </div>
             <div className="nav-buttons">
                 {isLoggedIn ? (
