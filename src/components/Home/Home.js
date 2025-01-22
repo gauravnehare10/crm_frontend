@@ -16,18 +16,25 @@ const Home = () => {
   // States for mortgage details
   const [hasMortgage, setHasMortgage] = useState(null);
   const [isLookingForMortgage, setLookForMortgage] = useState(null);
-  const [mortgageCount, setMortgageCount] = useState('');
-  const [resOrBuyToLet, setResOrBuyToLet] = useState('');
-  const [mortgageType, setMortgageType] = useState('');
+  const [paymentMethod, setPaymentMethod] = useState('');
+  const [estPropertyValue, setEstPropertyValue] = useState('');
   const [mortgageAmount, setMortgageAmount] = useState('');
-  const [mortgageAmount2, setMortgageAmount2] = useState('');
-  const [mortgageAmount3, setMortgageAmount3] = useState('');
+  const [loanToValue1, setLoanToValue1] = useState('');
+  const [furtherAdvance, setfurtherAdvance] = useState('');
+  const [mortgageType, setMortgageType] = useState('');
+  const [productRateType, setProductRateType] = useState('');
   const [renewalDate, setRenewalDate] = useState('');
-  const [newMortgageAmount, setNewMortgageAmount] = useState('');
-  const [ownershipType, setOwnershipType] = useState('');
-  const [depositeAmt, setDepositeAmt] = useState('');
-  const [annualIncome, setAnnualIncome] = useState('');
+  const [newMortgageType, setNewMortgageType] = useState('');
   const [foundProperty, setFoundProperty] = useState('');
+  const [purchasePrice, setPurchasePrice] = useState('');
+  const [loanAmount, setLoanAmount] = useState('');
+  const [depositAmount, setDepositAmount] =useState('');
+  const [loanToValue2, setLoanToValue2] = useState('');
+  const [sourceOfDeposit, setSourceOfDeposit] = useState('');
+  const [loanTerm, setLoanTerm] = useState('');
+  const [newPaymentMethod, setNewPaymentMethod] = useState('');
+  const [reference1, setReference1] = useState('');
+  const [reference2, setReference2] = useState('');
   const [showQuestions, setShowQuestions] = useState(true);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
@@ -49,6 +56,25 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    if (mortgageAmount > 0){
+      const calculatedLTV = ( mortgageAmount / estPropertyValue) * 100;
+      setLoanToValue1(calculatedLTV.toFixed(2));
+    } else{
+      setLoanToValue1(0);
+    }
+  }, [mortgageAmount, estPropertyValue]);
+
+  useEffect(() => {
+    if (purchasePrice > 0) {
+      const calculatedLTV = ((purchasePrice - depositAmount) / purchasePrice * 100);
+      setLoanToValue2(calculatedLTV.toFixed(2));
+    } else {
+      setLoanToValue2(0);
+    }
+  }, [depositAmount, purchasePrice]);
+
+  
   const submitData = async () => {
 
     if (!isCheckboxChecked) {
@@ -62,17 +88,12 @@ const Home = () => {
     }
   
     if (hasMortgage) {
-      if (!mortgageCount || !resOrBuyToLet || !mortgageType || !mortgageAmount) {
+      if (!paymentMethod || !estPropertyValue || !mortgageType || !mortgageAmount || !productRateType) {
         alert('Please fill out all the fields related to your mortgage.');
         return;
       }
-
-      if ((mortgageCount === '2' && !mortgageAmount2) || (mortgageCount === '3' && (!mortgageAmount2 || !mortgageAmount3))){
-        alert('Please enter all mortgage Amount.')
-        return
-      }
   
-      if (mortgageType === 'fixed' && !renewalDate) {
+      if (productRateType === 'fixed' && !renewalDate) {
         alert('Please enter the mortgage renewal or fixed-term end date.');
         return;
       }
@@ -83,40 +104,46 @@ const Home = () => {
       }
   
       if (isLookingForMortgage) {
-        if (!newMortgageAmount || !ownershipType || !annualIncome || !foundProperty) {
+        if (!newMortgageType || !purchasePrice || !loanAmount || !sourceOfDeposit || !loanTerm || !newPaymentMethod || !foundProperty || !depositAmount ) {
           alert('Please fill out all the fields for a new mortgage.');
           return;
         }
       }
     }
+    
     const data = hasMortgage
       ? {
           hasMortgage,
-          mortgageCount,
-          resOrBuyToLet,
-          mortgageType,
+          paymentMethod,
+          estPropertyValue,
           mortgageAmount,
-          mortgageAmount2,
-          mortgageAmount3,
+          loanToValue1,
+          furtherAdvance,
+          mortgageType,
+          productRateType,
           renewalDate,
+          reference1,
           username: userdata.username,
         }
       : {
           hasMortgage,
           isLookingForMortgage,
-          newMortgageAmount,
-          ownershipType,
-          annualIncome,
-          depositeAmt,
+          newMortgageType,
           foundProperty,
+          depositAmount,
+          purchasePrice,
+          loanToValue2,
+          loanAmount,
+          sourceOfDeposit,
+          loanTerm,
+          newPaymentMethod,
+          reference2,
           username: userdata.username,
         };
 
-    console.log(data);
-
     try {
       const response = await axios.post(
-        `https://mortgage-backend-476d.onrender.com/add_mortgage_data`,
+        `https://mortgage-backend-yn59.onrender.com/add_mortgage_data`,
         data
       );
       console.log('Response:', response.data);
@@ -126,8 +153,6 @@ const Home = () => {
       updateMortgage(stringifiedData);
       setShowQuestions(false);
       setIsCheckboxChecked(false);
-      setMortgageAmount2("");
-      setMortgageAmount3("");
       alert('Data submitted successfully.');
       navigate('/home');
     } catch (error) {
@@ -171,7 +196,7 @@ const Home = () => {
           </div>
         )}
       </div>
-      <div style={{'width': '90%'}}>
+      <div style={{'width': '100%'}}>
       <div className="aai-financials-info">
         <h2>Welcome to AAI Financials</h2>
         <div className='aai-financials-details'>
@@ -191,7 +216,7 @@ const Home = () => {
         {isLoggedIn && showQuestions && (
           <>
               <tr className="st-item">
-                <td><label>Do you have a mortgage?</label></td>
+                <td><label>Do you have an existing mortgage?</label></td>
                 <td>
                   <label>
                     <input
@@ -219,61 +244,57 @@ const Home = () => {
                 {hasMortgage && (
                   <>                 
                     <tr className="st-item"> 
-                      <td><label>How many mortgages do you have?</label></td>
+                      <td><label>Payment Method</label></td>
                       <td>
-                          <select className="inp-data" value={mortgageCount} onChange={(e) => setMortgageCount(e.target.value)}>
+                          <select className="inp-data" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
                             <option value="">Select</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option value="repayment">Repayment</option>
+                            <option value="interest only">Interest Only</option>
+                            <option value="part and part">Part and Part / Split</option>
                           </select>
                       </td>
                     </tr>
                     <tr className="st-item">
-                      <td><label>Mortgage amount:</label></td>
-                      <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount} onChange={(e) => setMortgageAmount(e.target.value)} required /></td>
+                      <td><label>Estimated Property Value</label></td>
+                      <td>
+                      <input className="inp-data" type="number" placeholder="Enter Property Value" value={estPropertyValue} onChange={(e) => setEstPropertyValue(e.target.value)} required />
+                      </td>
                     </tr>
-                    { mortgageCount === "2" && (
-                      <tr className="st-item">
-                      <td><label>Mortgage-2 amount:</label></td>
-                      <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount2} onChange={(e) => setMortgageAmount2(e.target.value)} required /></td>
+                    <tr className="st-item">
+                      <td><label>Mortgage Amount</label></td>
+                      <td><input className="inp-data" type="number" placeholder="Enter Amount" value={mortgageAmount} onChange={(e) => setMortgageAmount(e.target.value)} required /></td>
                     </tr>
-                    )}
-                    { mortgageCount === "3" && (
-                      <>
-                      <tr className="st-item">
-                        <td><label>Mortgage-2 amount:</label></td>
-                        <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount2} onChange={(e) => setMortgageAmount2(e.target.value)} required /></td>
-                      </tr>
-                      <tr className="st-item">
-                        <td><label>Mortgage-3 amount:</label></td>
-                        <td><input className="inp-data" type="number" placeholder="Enter amount" value={mortgageAmount3} onChange={(e) => setMortgageAmount3(e.target.value)} required /></td>
-                      </tr>
-                      </>
-                    )}
+                    <tr className="st-item">
+                      <td><label>Loan To Value</label></td>
+                      <td>{loanToValue1} %</td>
+                    </tr>
+                    <tr className="st-item">
+                      <td><label>Further Advance</label></td>
+                      <td><input className="inp-data" type="number" placeholder="If Any" value={furtherAdvance} onChange={(e) => setfurtherAdvance(e.target.value)} required /></td>
+                    </tr>
                     <tr className="st-item"> 
-                      <td><label>Are they?</label></td>
+                      <td><label>Mortgage Type</label></td>
                       <td>
-                          <select className="inp-data" value={resOrBuyToLet} onChange={(e) => setResOrBuyToLet(e.target.value)}>
-                            <option value="">Select</option>
-                            <option value="residential">Residential</option>
-                            <option value="buy to let">Buy to Let</option>
-                            <option value="both">Both</option>
-                          </select>
+                        <select className="inp-data" value={mortgageType} onChange={(e) => setMortgageType(e.target.value)} required>          
+                          <option value="">Select</option>
+                          <option value="residential">Residential</option>
+                          <option value="consumer buy to let">Consumer Buy to Let</option>
+                          <option value="company buy to let">Company Buy to Let</option>
+                        </select>
                       </td>
                     </tr>
                     <tr className="st-item">
-                      <td><label>Type:</label></td>
+                      <td><label>Product Rate Type</label></td>
                       <td>
-                          <select className="inp-data" value={mortgageType} onChange={(e) => setMortgageType(e.target.value)}>
+                          <select className="inp-data" value={productRateType} onChange={(e) => setProductRateType(e.target.value)}>
                             <option value="">Select</option>
                             <option value="fixed">Fixed</option>
                             <option value="variable">Variable</option>
-                            <option value="other">Other</option>
+                            <option value="tracker">Tracker</option>
                           </select>
                       </td>
                     </tr>
-                    {mortgageType === 'fixed' && (
+                    {productRateType === 'fixed' && (
                     <tr className="st-item">
                       <td><label>Mortgage renewal or fixed term end date:</label></td> 
                       <td>
@@ -287,7 +308,11 @@ const Home = () => {
                         />
                       </td>
                     </tr>
-                  )}                 
+                  )}
+                  <tr className="st-item">
+                    <td><label>Reference</label></td>
+                    <td><input type="text" className='inp-data' placeholder='If Any' value={reference1} onChange={(e) => setReference1(e.target.value)} /></td>
+                  </tr>              
                   </>
                 )}
                 {!hasMortgage && (
@@ -296,22 +321,11 @@ const Home = () => {
                       <td><label>Are you looking for a new mortgage?</label></td>
                       <td>
                         <label>
-                          <input
-                            type="radio"
-                            name="look-for-mortgage"
-                            value="yes"
-                            required
-                            onChange={() => setLookForMortgage(true)}
-                          />
+                          <input type="radio" name="look-for-mortgage" alue="yes" required onChange={() => setLookForMortgage(true)} />
                           Yes
                         </label>
                         <label>
-                          <input
-                            type="radio"
-                            name="look-for-mortgage"
-                            value="no"
-                            onChange={() => setLookForMortgage(false)}
-                          />
+                          <input type="radio" name="look-for-mortgage" value="no" onChange={() => setLookForMortgage(false)}/>
                           No
                         </label>
                       </td>
@@ -320,74 +334,89 @@ const Home = () => {
                       <>
                         {isLookingForMortgage && (
                           <>
+                            <p>You are at right place, we will help you to find best mortgage deal.</p>
                             <tr className="st-item">
-                              <td><label>Approximate mortgage amount:</label></td>
+                              <td><label>Mortgage Type</label></td>
                               <td>
-                                <input
-                                type="number"
-                                className="inp-data"
-                                placeholder="Enter approximate amount"
-                                value={newMortgageAmount}
-                                onChange={(e) => setNewMortgageAmount(e.target.value)}
-                                required
-                              />
-                              </td>
-                            </tr>
-                            <tr className="st-item">
-                                <td><label>Is it joint or single?</label></td>
-                                <td>
-                                  <select className="inp-data" value={ownershipType} onChange={(e) => setOwnershipType(e.target.value)} required>
-                                    <option>Select</option>
-                                    <option value="joint">Joint</option>
-                                    <option value="single">Single</option>
-                                  </select>
-                                </td>
-                            </tr>
-                            <tr className="st-item">
-                              <td><label>Annual income:</label></td>
-                              <td><input
-                                type="number"
-                                className="inp-data"
-                                placeholder="Enter your annual income"
-                                value={annualIncome}
-                                onChange={(e) => setAnnualIncome(e.target.value)}
-                              />
-                              </td>
-                            </tr>
-                            <tr className="st-item">
-                              <td><label>Deposite Amount:</label></td>
-                              <td><input
-                                type="number"
-                                className="inp-data"
-                                placeholder="Enter Deposite Amount"
-                                value={depositeAmt}
-                                onChange={(e) => setDepositeAmt(e.target.value)}
-                              />
+                                <select className="inp-data" value={newMortgageType} onChange={(e) => setNewMortgageType(e.target.value)}>
+                                  <option value="">Select</option>
+                                  <option value="residential">Residential</option>
+                                  <option value="consumer buy to let">Consumer Buy to Let</option>
+                                  <option value="company buy to let">Company Buy to Let</option>
+                                </select>
                               </td>
                             </tr>
                             <tr className="st-item">
                               <td><label>Have you found the property?</label></td>
                               <td>
                                 <label>
-                                  <input
-                                    type="radio"
-                                    name="found-property"
-                                    value="Yes"
-                                    required
-                                    onChange={(e) => setFoundProperty(e.target.value)}
-                                  />
+                                  <input type="radio" name="have-found-property" value={foundProperty} required onChange={() => setFoundProperty("Yes")} />
                                   Yes
                                 </label>
                                 <label>
-                                  <input
-                                    type="radio"
-                                    name="found-property"
-                                    value="No"
-                                    onChange={(e) => setFoundProperty(e.target.value)}
-                                  />
+                                  <input type="radio" name="have-found-property" value={foundProperty} onChange={() => setFoundProperty("No")}/>
                                   No
                                 </label>
                               </td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Purchase Price</label></td>
+                              <td><input
+                                type="number"
+                                className="inp-data"
+                                placeholder="Enter your Purchase Price"
+                                value={purchasePrice}
+                                onChange={(e) => setPurchasePrice(e.target.value)}
+                              />
+                              </td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Loan Amount</label></td>
+                              <td><input
+                                type="number"
+                                className="inp-data"
+                                placeholder="Enter Loan Amount"
+                                value={loanAmount}
+                                onChange={(e) => setLoanAmount(e.target.value)}
+                              />
+                              </td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Approximate Deposit Amount</label></td>
+                              <td><input type="number" className='inp-data' placeholder='Enter Deposit Amount' value={depositAmount} onChange={(e) => setDepositAmount(e.target.value)}/></td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Loan To Value</label></td>
+                              <td>{ loanToValue2 } %</td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Source of Deposit</label></td>
+                              <td>
+                                <select className="inp-data" value={sourceOfDeposit} onChange={(e) => setSourceOfDeposit(e.target.value)} required>
+                                  <option value="">Select</option>
+                                  <option value="savings">Savings</option>
+                                  <option value="other">Other</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Loan Term in Years</label></td>
+                              <td><input type="number" className='inp-data' placeholder='Years' value={loanTerm} onChange={(e) => setLoanTerm(e.target.value)} /></td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Payment Method</label></td>
+                              <td>
+                                <select className="inp-data" value={newPaymentMethod} onChange={(e) => setNewPaymentMethod(e.target.value)} required>
+                                <option value="">Select</option>
+                                  <option value="repayment">Repayment</option>
+                                  <option value="interest only">Interest Only</option>
+                                  <option value="part and part">Part and Part / Split</option>
+                                </select>
+                              </td>
+                            </tr>
+                            <tr className="st-item">
+                              <td><label>Reference</label></td>
+                              <td><input type="text" className='inp-data' placeholder='if any' value={reference2} onChange={(e) => setReference2(e.target.value)} /></td>
                             </tr>
                           </>
                         )}
@@ -428,7 +457,7 @@ const Home = () => {
       <div className="thank-you-message">
         <h6>Thank you for submitting your details! Our team will contact you soon.</h6>
         <div className="navigation-buttons">
-          <button className="edit-resp" onClick={() => setShowQuestions(true)}>Add Details</button>
+          <button className="edit-resp" onClick={() => setShowQuestions(true)}>Add Another</button>
           <button className="view-resp" onClick={viewResponses}>View Details</button>
         </div>
       </div>

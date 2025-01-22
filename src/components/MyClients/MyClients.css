@@ -18,6 +18,9 @@
     border-collapse: collapse;
     font-size: 16px;
     margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s ease forwards;
 }
 
 .users-table th,
@@ -32,6 +35,16 @@ th {
     font-weight: bold;
 }
 
+.user-row {
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.user-row:hover {
+    background-color: #f1f1f1;
+    transform: scale(1.02);
+}
+
 .btn-back {
     padding: 10px;
     background-color: red;
@@ -41,20 +54,73 @@ th {
     margin-top: 10px;
     color: white;
     cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
 }
 
 .btn-back:hover {
-    background-color: rgb(158, 14, 14);
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.4);
 }
 
-.user-row {
+.remove-user-btn, .view-user-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
     cursor: pointer;
+    border-radius: 4px;
+    transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
-.user-row:hover {
-    background-color: #f9f9f9;
+.view-user-btn {
+    margin-right: 5px;
+    background-color: #4caf50;
+    color: white;
 }
 
+.remove-user-btn:hover {
+    background-color: #d9363e;
+    transform: scale(1.1);
+}
+
+.view-user-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.1);
+}
+
+/* Loading spinner */
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #4caf50;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 0.8s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
     .clients-container {
         padding: 10px;
@@ -69,7 +135,8 @@ th {
         font-size: 14px;
     }
 
-    th, td {
+    th,
+    td {
         padding: 8px;
     }
 
@@ -87,7 +154,8 @@ th {
         font-size: 16px;
     }
 
-    th, td {
+    th,
+    td {
         padding: 10px;
     }
 }

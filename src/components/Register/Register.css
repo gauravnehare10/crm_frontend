@@ -78,6 +78,11 @@ label {
     padding: 8px;
   }
 
+  .register-main{
+    height: 100%;
+    margin-top: 50px;
+  }
+
   .register-button {
     font-size: 14px;
     padding: 10px;
@@ -93,6 +98,10 @@ label {
   h2 {
     font-size: 18px;
     text-align: center;
+  }
+
+  .register-main{
+    height: 100%;
   }
 
   input[type="text"],

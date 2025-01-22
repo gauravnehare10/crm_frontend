@@ -53,7 +53,7 @@ const Register = () => {
     }
 
     axios
-      .post('https://mortgage-backend-476d.onrender.com/register', {
+      .post('https://mortgage-backend-yn59.onrender.com/register', {
         name: name,
         username: username,
         password: password,

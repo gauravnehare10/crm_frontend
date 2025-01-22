@@ -17,7 +17,7 @@ const Footer = () => {
 
         
         <div className="footer-section">
-          <p>ANAYASD Limited works with Linear Mortgage</p>
+          <p>Anayasd limited works under Linear Financial Serviced (trading name is Linear Mortgage Network)</p>
           <p>Linear Mortgage Network Limited who are an Appointed Representative of PRIMIS Mortgage Network, a trading name of Advance Mortgage Funding Ltd.</p>
           <p>Advance Mortgage Funding Ltd is authorised and regulated by the Financial Conduct Authority.</p>
         </div>

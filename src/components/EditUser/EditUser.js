@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './EditUser.css';
 import axios from 'axios';
+import useStore from '../../store';
 
 const EditUser = () => {
     const navigate = useNavigate();
@@ -13,6 +14,7 @@ const EditUser = () => {
     const [email, setEmail] = useState(userData.email);
     const [contactNumber, setContactNumber] = useState(userData.contactnumber);
     
+    const { updateUserData } = useStore();
 
     const handleCancle = () =>{
         if (userData.isAdmin){
@@ -27,14 +29,32 @@ const EditUser = () => {
         try {
             const userId = userData.id;
             const updatedData = { name, username, email, contactnumber: contactNumber };
+            const userdata = {id: userData.id, name, username, email, contactnumber: contactNumber}
             console.log(updatedData)
-            const response = await axios.put(`https://mortgage-backend-476d.onrender.com/users/${userId}`, updatedData);
+            const response = await axios.put(`https://mortgage-backend-yn59.onrender.com/users/${userId}`, updatedData);
             console.log(response.data);
             alert("User updated successfully!");
-            navigate("/myclients");
+            if (userData.isAdmin){
+                navigate("/myclients");
+            }
+            if (userData.isUser){
+                updateUserData(userdata);
+                navigate("/response");
+            }
+            
         } catch (error) {
             console.error(error);
-            alert("Failed to update user details");
+            if (error.response && error.response.data.detail) {
+                if (error.response.data.detail === 'Username already exists.') {
+                  window.alert('Username already exists. Please choose another username.');
+                } else if (error.response.data.detail === 'Email already exists.') {
+                  window.alert('Email already exists. Please use a different email.');
+                } else {
+                  window.alert(error.response.data.detail);
+                }
+            } else {
+                window.alert('Something went wrong. Please try again.');
+            }
         }
     };
 
@@ -64,7 +84,7 @@ const EditUser = () => {
                         <td><input className="inp-data" type="text" value={contactNumber} onChange={(e) => setContactNumber(e.target.value)} /></td>
                     </tr>
                     <tr>
-                        <td><button className="back-button" onClick={handleCancle}>Cancle</button></td>
+                        <td><button className="back-button" onClick={handleCancle}>Cancel</button></td>
                         <td><button className="submit-button" onClick={ submitData }>Submit</button></td>
                     </tr>
                 </tbody>

@@ -14,7 +14,7 @@ export default function Response() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`https://mortgage-backend-476d.onrender.com/user/${userdata.username}`);
+        const response = await axios.get(`https://mortgage-backend-yn59.onrender.com/user/${userdata.username}`);
         console.log(response.data);
         setUserDetails(response.data);
       } catch (error) {
@@ -42,13 +42,16 @@ export default function Response() {
       "user_id": userDetails._id,
       'id': selectedMortgage._id,
       'hasMortgage': selectedMortgage.hasMortgage,
-      'mortgageType':selectedMortgage.mortgageType,
-      'mortgageCount': selectedMortgage.mortgageCount,
+      'paymentMethod': selectedMortgage.paymentMethod,
+      'estPropertyValue':selectedMortgage.estPropertyValue,
       'mortgageAmount': selectedMortgage.mortgageAmount,
-      'mortgageAmount2': selectedMortgage.mortgageAmount2,
-      'mortgageAmount3': selectedMortgage.mortgageAmount3,
-      'resOrBuyToLet': selectedMortgage.resOrBuyToLet,
+      "loanToValue1": selectedMortgage.loanToValue1,
+      "furtherAdvance": selectedMortgage.furtherAdvance,
+      'mortDepositAmount': selectedMortgage.mortDepositAmount,
+      'mortgageType': selectedMortgage.mortgageType,
+      'productRateType': selectedMortgage.productRateType,
       'renewalDate': selectedMortgage.renewalDate,
+      'reference1': selectedMortgage.reference1,
     }
     navigate('/editmortgage', {state: exMortgagedata});
   }
@@ -59,11 +62,16 @@ export default function Response() {
       "user_id": userDetails._id,
       "id": selectedNewMortgage._id,
       "isLookingForMortgage": selectedNewMortgage.isLookingForMortgage,
-      "newMortgageAmount": selectedNewMortgage.newMortgageAmount,
-      "ownershipType": selectedNewMortgage.ownershipType,
-      "annualIncome": selectedNewMortgage.annualIncome,
-      "depositeAmt": selectedNewMortgage.depositeAmt,
-      "foundProperty": selectedNewMortgage.foundProperty
+      "newMortgageType": selectedNewMortgage.newMortgageType,
+      "foundProperty": selectedNewMortgage.foundProperty,
+      "depositAmount": selectedNewMortgage.depositAmount,
+      "purchasePrice": selectedNewMortgage.purchasePrice,
+      "loanToValue2": selectedNewMortgage.loanToValue2,
+      "loanAmount": selectedNewMortgage.loanAmount,
+      "sourceOfDeposit": selectedNewMortgage.sourceOfDeposit,
+      "loanTerm": selectedNewMortgage.loanTerm,
+      "newPaymentMethod": selectedNewMortgage.newPaymentMethod,
+      "reference2": selectedNewMortgage.reference2,
     }
 
     navigate('/editnewmortgage', {state: newMortgageData});
@@ -71,7 +79,7 @@ export default function Response() {
 
   const handleDelete = async (id, type) => {
     try {
-      await axios.delete(`https://mortgage-backend-476d.onrender.com/delete-response/${id}?type=${type}`);
+      await axios.delete(`https://mortgage-backend-yn59.onrender.com/delete-response/${id}?type=${type}`);
       // Remove the deleted item from the state
       setUserDetails((prevDetails) => {
         if (type === 'existing') {
@@ -173,20 +181,15 @@ export default function Response() {
                 <h2>Mortgage Details</h2>
                 <table>
                     <tr><th>Has Mortgage</th><td>{selectedMortgage.hasMortgage ? 'Yes' : 'No'}</td></tr>
-                    <tr><th>Mortgage Type</th><td>{selectedMortgage.mortgageType}</td></tr>
-                    <tr><th>Mortgage Count</th><td>{selectedMortgage.mortgageCount}</td></tr>
+                    <tr><th>Payment Method</th><td>{selectedMortgage.paymentMethod}</td></tr>
+                    <tr><th>Estimated Property Value</th><td>{selectedMortgage.estPropertyValue}</td></tr>
                     <tr><th>Mortgage Amount</th><td>{selectedMortgage.mortgageAmount}</td></tr>
-                    {selectedMortgage.mortgageCount === '2' &&(
-                      <tr><th>Mortgage-2 Amount</th><td>{selectedMortgage.mortgageAmount2}</td></tr>
-                    )}
-                    {selectedMortgage.mortgageCount === '3' &&(
-                      <>
-                      <tr><th>Mortgage-2 Amount</th><td>{selectedMortgage.mortgageAmount2}</td></tr>
-                      <tr><th>Mortgage-3 Amount</th><td>{selectedMortgage.mortgageAmount3}</td></tr>
-                      </>
-                    )}
-                    <tr><th>Residential/Buy to Let</th><td>{selectedMortgage.resOrBuyToLet}</td></tr>
+                    <tr><th>Loan to value</th><td>{selectedMortgage.loanToValue1} %</td></tr>
+                    <tr><th>Further Advance</th><td>{selectedMortgage.furtherAdvance}</td></tr>
+                    <tr><th>Mortgage Type</th><td>{selectedMortgage.mortgageType}</td></tr>
+                    <tr><th>Product Rate Type</th><td>{selectedMortgage.productRateType}</td></tr>
                     <tr><th>Renewal Date</th><td>{selectedMortgage.renewalDate}</td></tr>
+                    <tr><th>Reference</th><td>{selectedMortgage.reference1}</td></tr>
                     <tr>
                         <td><button className="mortgage-close-button" onClick={() => setSelectedMortgage(null)}>Close</button></td>
                         <td><button className="mortgage-edit-button" onClick={ exMortgageEdit }>Edit</button></td>
@@ -200,11 +203,16 @@ export default function Response() {
                 <h2>Requested Mortgage Details</h2>
                 <table>
                     <tr><th>Is Looking For Mortgage</th><td>{selectedNewMortgage.isLookingForMortgage ? 'Yes' : 'No'}</td></tr>
-                    <tr><th>New Mortgage Amount</th><td>{selectedNewMortgage.newMortgageAmount}</td></tr>
-                    <tr><th>Ownership Type</th><td>{selectedNewMortgage.ownershipType}</td></tr>
-                    <tr><th>Annual Income</th><td>{selectedNewMortgage.annualIncome}</td></tr>
-                    <tr><th>Deposit Amount</th><td>{selectedNewMortgage.depositeAmt}</td></tr>
-                    <tr><th>Property Found?</th><td>{selectedNewMortgage.foundProperty}</td></tr>
+                    <tr><th>New Mortgage Type</th><td>{selectedNewMortgage.newMortgageType}</td></tr>
+                    <tr><th>Have you found the property?</th><td>{selectedNewMortgage.foundProperty}</td></tr>
+                    <tr><th>Deposit Amount</th><td>{selectedNewMortgage.depositAmount}</td></tr>
+                    <tr><th>Purchase Price</th><td>{selectedNewMortgage.purchasePrice}</td></tr>
+                    <tr><th>Loan to value</th><td>{selectedNewMortgage.loanToValue2} %</td></tr>
+                    <tr><th>Loan Amount</th><td>{selectedNewMortgage.loanAmount}</td></tr>
+                    <tr><th>Source of Deposit</th><td>{selectedNewMortgage.sourceOfDeposit}</td></tr>
+                    <tr><th>Loan Term</th><td>{selectedNewMortgage.loanTerm} Years</td></tr>
+                    <tr><th>Payment Method</th><td>{selectedNewMortgage.newPaymentMethod}</td></tr>
+                    <tr><th>Reference</th><td>{selectedNewMortgage.reference2}</td></tr>
                     <tr>
                         <td><button className="mortgage-close-button" onClick={() => setSelectedNewMortgage(null)}>Close</button></td>
                         <td><button className="mortgage-edit-button" onClick={ newMortgageEdit }>Edit</button></td>

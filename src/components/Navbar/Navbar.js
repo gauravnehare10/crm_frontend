@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
     const isLoggedIn = !!localStorage.getItem('username') || !!localStorage.getItem('admin_details');
-    const isAdmin = !!localStorage.getItem('admin_details'); // Check if admin is logged in
+    const isAdmin = !!localStorage.getItem('admin_details');
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -30,28 +30,24 @@ export default function Navbar() {
         setIsMenuOpen(false); 
     };
 
-    const username = localStorage.getItem("username");
-
     return (
         <div className="navbar-container">
             <div className="dash-navbar" onClick={toggleMenu}>
-                <h2>{isLoggedIn ? (isAdmin ? "Admin" : username) : "AAI Financials"}</h2>
+                <img src="AAI_Logo_cp.png" alt="logo" />
             </div>
             <div className="nav-buttons">
                 {isLoggedIn ? (
                     isAdmin ? (
-                        // Admin-specific navbar
                         <>
                             <ul className={isMenuOpen ? 'show' : ''}>
                                 <li onClick={() => handleNavigation("/admindash")}>Admin Dashboard</li>
                                 <li onClick={() => handleNavigation("/myclients")}>My Client</li>
                             </ul>
                             <button className="logout-button" onClick={handleLogout}>
-                                Logout
+                                Log Out
                             </button>
                         </>
                     ) : (
-                        // User-specific navbar
                         <>
                             <ul className={isMenuOpen ? 'show' : ''}>
                                 <li onClick={() => handleNavigation("/home")}>Home</li>
