@@ -171,8 +171,8 @@ export default function EditNewMortgage() {
                         <td><input type="text" className='inp-data' placeholder='If Any' value={reference2} onChange={(e) => setReference2(e.target.value)} /></td>
                     </tr>
                     <tr className="st-item">
-                        <td><button style={{"background": "red", "border": 'none', "color": 'white'}} onClick={ handleCancel }>Cancle</button></td>
-                        <td><button style={{"background": "green", "border": 'none', "color": 'white'}} onClick={ handleSave } >Save</button></td>
+                        <td><button style={{"background": "red", "border": 'none', "color": 'white', "padding": '5px'}} onClick={ handleCancel }>Cancle</button></td>
+                        <td><button style={{"background": "green", "border": 'none', "color": 'white', "padding": '5px'}} onClick={ handleSave } >Save</button></td>
                     </tr>
                     </tbody>
                 </table>

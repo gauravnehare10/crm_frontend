@@ -30,9 +30,9 @@ const Register = () => {
       setError('Please enter a valid email address.');
       return false;
     }
-    const contactRegex = /^[0-9]{10}$/;
+    const contactRegex = /^[0-9]{10,11}$/;
     if (!contactRegex.test(contactNumber)) {
-      setError('Contact number must be a valid 10-digit number.');
+      setError('Contact number must be a valid 10 or 11-digit number.');
       return false;
     }
     if (password.length < 6) {

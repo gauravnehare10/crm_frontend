@@ -60,7 +60,7 @@ const EditUser = () => {
 
     return (
         <div className="user-details-container">
-            <h2 className="user-details-title">User Details</h2>
+            <h2 className="user-details-title">Edit User Details</h2>
             <table className="user-details-table">
                 <tbody>
                     <tr>

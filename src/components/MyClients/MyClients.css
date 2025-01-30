@@ -140,6 +140,10 @@ th {
         padding: 8px;
     }
 
+    .view-user-btn, .remove-user-btn {
+        margin: 1px;
+    }
+
     .btn-back {
         width: 100%;
     }
@@ -157,5 +161,9 @@ th {
     th,
     td {
         padding: 10px;
+    }
+
+    .view-user-btn, .remove-user-btn {
+        margin: 1px;
     }
 }
