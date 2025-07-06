@@ -53,7 +53,7 @@ const UserDetails = ({ userName, onBack }) => {
     useEffect(() => {
         const fetchUserDetails = async () => {
         try {
-            const response = await axios.get(`https://mortgage-backend-yn59.onrender.com/user/${userName}`);
+            const response = await axios.get(`http://127.0.0.1:8000/user/${userName}`);
             console.log(response.data);
             setUserDetails(response.data);
         } catch (error) {
@@ -78,7 +78,7 @@ const UserDetails = ({ userName, onBack }) => {
 
     const handleDelete = async (id, type) => {
         try {
-        await axios.delete(`https://mortgage-backend-yn59.onrender.com/delete-response/${id}?type=${type}`);
+        await axios.delete(`http://127.0.0.1:8000/delete-response/${id}?type=${type}`);
         // Remove the deleted item from the state
         setUserDetails((prevDetails) => {
             if (type === 'existing') {

@@ -31,7 +31,7 @@ const EditUser = () => {
             const updatedData = { name, username, email, contactnumber: contactNumber };
             const userdata = {id: userData.id, name, username, email, contactnumber: contactNumber}
             console.log(updatedData)
-            const response = await axios.put(`https://mortgage-backend-yn59.onrender.com/users/${userId}`, updatedData);
+            const response = await axios.put(`http://127.0.0.1:8000/users/${userId}`, updatedData);
             console.log(response.data);
             alert("User updated successfully!");
             if (userData.isAdmin){

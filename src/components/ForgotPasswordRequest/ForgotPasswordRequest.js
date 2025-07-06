@@ -11,7 +11,7 @@ const ForgotPasswordRequest = () => {
     e.preventDefault();
     try {
       console.log(email)
-      const response = await axios.post("https://mortgage-backend-yn59.onrender.com/password-reset-request", { email });
+      const response = await axios.post("http://127.0.0.1:8000/password-reset-request", { email });
       setError('');
       setSuccess(response.data.message || "Reset link sent successfully.");
     } catch (error) {

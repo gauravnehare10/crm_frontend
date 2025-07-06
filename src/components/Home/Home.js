@@ -143,7 +143,7 @@ const Home = () => {
 
     try {
       const response = await axios.post(
-        `https://mortgage-backend-yn59.onrender.com/add_mortgage_data`,
+        `http://127.0.0.1:8000/add_mortgage_data`,
         data
       );
       console.log('Response:', response.data);

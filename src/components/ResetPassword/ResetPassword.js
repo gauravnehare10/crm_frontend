@@ -12,7 +12,7 @@ const ResetPassword = () => {
   const handleReset = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("https://mortgage-backend-yn59.onrender.com/password-change", {
+      const response = await axios.post("http://127.0.0.1:8000/password-change", {
         token,
         new_password: newPassword,
       });

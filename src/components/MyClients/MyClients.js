@@ -18,7 +18,7 @@ export default function MyClients() {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('https://mortgage-backend-yn59.onrender.com/users/');
+                const response = await axios.get('http://127.0.0.1:8000/users/');
                 setUsers(response.data);
             } catch (error) {
                 console.error('Error fetching users:', error);
@@ -30,7 +30,7 @@ export default function MyClients() {
     // Delete user function
     const handleDelete = async (userId) => {
         try {
-            const response = await axios.delete(`https://mortgage-backend-yn59.onrender.com/users/delete/${userId}`);
+            const response = await axios.delete(`http://127.0.0.1:8000/users/delete/${userId}`);
             if (response.status === 200) {
                 // Remove the deleted user from the state
                 setUsers(users.filter(user => user.id !== userId));

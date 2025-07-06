@@ -18,7 +18,7 @@ const AdminLogin = () => {
     }
 
     setError('');
-    axios.post('https://mortgage-backend-yn59.onrender.com/admin/login', {
+    axios.post('http://127.0.0.1:8000/admin/login', {
       username: username,
       password: password
     })

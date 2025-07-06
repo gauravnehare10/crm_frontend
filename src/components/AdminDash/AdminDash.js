@@ -21,7 +21,7 @@ const AdminDash = () => {
 
     const fetchCounts = async () => {
       try {
-        const response = await fetch('https://mortgage-backend-yn59.onrender.com/count_mortgages');
+        const response = await fetch('http://127.0.0.1:8000/count_mortgages');
         if (response.ok) {
           const data = await response.json();
           setStats({

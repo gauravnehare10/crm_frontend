@@ -42,7 +42,7 @@ export default function EditMortgage() {
     
         try {
             const response = await axios.put(
-                `https://mortgage-backend-yn59.onrender.com/update-mortgage/${exMortgage.user_id}`,
+                `http://127.0.0.1:8000/update-mortgage/${exMortgage.user_id}`,
                 payload
             );
             alert(response.data.message);

@@ -53,7 +53,7 @@ const Register = () => {
     }
 
     axios
-      .post('https://mortgage-backend-yn59.onrender.com/register', {
+      .post('http://127.0.0.1:8000/register', {
         name: name,
         username: username,
         password: password,
